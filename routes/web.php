@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MicropostsController;
 use App\Http\Controllers\UserFollowController;
+use App\Http\Controllers\FavoritesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,10 @@ Route::group(['prefix' => 'users/{id}'], function () {                          
         Route::delete('unfollow', [UserFollowController::class, 'destroy'])->name('user.unfollow'); // 追記
         Route::get('followings', [UsersController::class, 'followings'])->name('users.followings'); // 追記
         Route::get('followers', [UsersController::class, 'followers'])->name('users.followers');    // 追記
-    });
+});
+
+Route::group(['prefix' => 'users/{id}'], function () {
+        Route::post('favorite', [FavoritesController::class, 'store'])->name('user.favorite');
+        Route::delete('unfavorite', [FavoritesController::class, 'destroy'])->name('user.unfavorite');
+        Route::get('favorites', [UsersController::class, 'favorites'])->name('users.favorites');
+});
